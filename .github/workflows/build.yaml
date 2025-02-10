@@ -78,6 +78,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: ${{ env.PUSH }}
           tags: ghcr.io/netcracker/${{ matrix.component.name }}:${{ env.TAG_NAME }}
+          build-args: |
+            version=${{ matrix.component.build_args.version }}
+            exp_version=${{ matrix.component.build_args.exp_version }}
           provenance: false
       - uses: actions/delete-package-versions@v5
         with: 
