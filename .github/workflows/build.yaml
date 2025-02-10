@@ -29,13 +29,13 @@ jobs:
         component:
           - name: cassandra_4.1
             file: Dockerfile
-            context: ../../
+            context: ""
             build_args:
               version: 5.0.2
               exp_version: v0.9.14/cassandra-exporter-agent-0.9.14.jar
           - name: cassandra_5.0
             file: Dockerfile
-            context: ../../
+            context: ""
             build_args:
               version: 5.0.2
               exp_version: v0.9.14/cassandra-exporter-agent-0.9.14.jar
