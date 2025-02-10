@@ -39,9 +39,6 @@ RUN wget -O /usr/share/java/cassandra-exporter-agent.jar https://github.com/inst
 
 RUN rm -f $CASSANDRA_CONFIG_DIR/cassandra-topology.properties
 
-RUN cp /files/sshd_config /var/lib/cassandra/custom_ssh/
-RUN cp /files/run.sh /
-
 RUN mkdir -p /var/lib/cassandra \
         && mkdir -p /var/lib/cassandra/custom_ssh \
         && chmod -R 777 /var/lib/cassandra \
@@ -52,6 +49,9 @@ RUN mkdir -p /var/lib/cassandra \
         && chmod -R 777 /var/lib/cassandra/custom_ssh
 
 VOLUME /var/lib/cassandra
+
+RUN cp /files/sshd_config /var/lib/cassandra/custom_ssh/
+RUN cp /files/run.sh /
 
 EXPOSE 7000 7001 7199 9042 9160 2222 8778
 
