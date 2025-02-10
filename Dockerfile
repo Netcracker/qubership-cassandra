@@ -36,8 +36,8 @@ RUN wget -O /usr/share/java/cassandra-exporter-agent.jar https://github.com/inst
 
 RUN rm -f $CASSANDRA_CONFIG_DIR/cassandra-topology.properties
 
-ADD /files/sshd_config /var/lib/cassandra/custom_ssh/
-ADD /files/run.sh /
+RUN cp /files/sshd_config /var/lib/cassandra/custom_ssh/
+RUN cp /files/run.sh /
 
 RUN mkdir -p /var/lib/cassandra \
         && mkdir -p /var/lib/cassandra/custom_ssh \
