@@ -10,8 +10,8 @@ COPY /deployments /deployments
 COPY /version/ /version/
 RUN cp -rf /version/${CASSANDRA_VERSION}/templates/* /deployments/charts/cassandra/templates/
 
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.18/main' > /etc/apk/repositories \
-    && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.18/community' >> /etc/apk/repositories \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/main' > /etc/apk/repositories \
+    && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/community' >> /etc/apk/repositories \
     && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
@@ -30,6 +30,8 @@ ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
 
 RUN echo 'export PATH=$PATH:'"$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin" > $CASSANDRA_HOME/.profile 
 RUN cp $CASSANDRA_HOME/bin/cqlsh /usr/share/bin
+
+RUN mkdir -p /usr/share/java/
 
 RUN wget -O /usr/share/java/sjk-plus-0.17.jar https://repo1.maven.org/maven2/org/gridkit/jvmtool/sjk-plus/0.17/sjk-plus-0.17.jar
 RUN wget -O /usr/share/java/cassandra-exporter-agent.jar https://github.com/instaclustr/cassandra-exporter/releases/download/${EXPORTER_VERSION}
