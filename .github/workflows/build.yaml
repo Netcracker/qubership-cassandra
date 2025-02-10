@@ -49,8 +49,8 @@ jobs:
           fi
       - name: Replace Files in Deployments for ${{ matrix.component.name }}
         run: |
-          mv ../../deployments .
-          cp ../../version/${version}/templates/* deployments/charts/cassandra/templates/
+          mv /deployments .
+          cp /version/${version}/templates/* /deployments/charts/cassandra/templates/
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
