@@ -31,13 +31,13 @@ jobs:
             file: Dockerfile
             context: ""
             build_args:
-              version: 5.0.2
+              version: 5.0.3
               exp_version: v0.9.14/cassandra-exporter-agent-0.9.14.jar
           - name: cassandra_5.0
             file: Dockerfile
             context: ""
             build_args:
-              version: 5.0.2
+              version: 5.0.3
               exp_version: v0.9.14/cassandra-exporter-agent-0.9.14.jar
     runs-on: ubuntu-24.04
     steps:
