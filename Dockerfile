@@ -12,7 +12,7 @@ RUN cp -rf /version/${CASSANDRA_VERSION}/templates/* /deployments/charts/cassand
 
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/main' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/community' >> /etc/apk/repositories \
-    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl \
+    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl py3-cassandra-driver \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
 
@@ -23,7 +23,7 @@ ENV CASSANDRA_DATA /var/lib/cassandra/data
 ENV CASSANDRA_HOME /opt/cassandra
 
 #COPY pip.conf /etc/pip.conf
-RUN pip3 install cassandra-driver
+#RUN pip3 install cassandra-driver
 
 RUN wget -qO- https://dlcdn.apache.org/cassandra/${CASSANDRA_VERSION}/apache-cassandra-${CASSANDRA_VERSION}-bin.tar.gz | tar xvfz - -C /tmp/ && mv /tmp/apache-cassandra-${CASSANDRA_VERSION} $CASSANDRA_HOME
 ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
