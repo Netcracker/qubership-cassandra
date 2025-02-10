@@ -50,8 +50,8 @@ RUN mkdir -p /var/lib/cassandra \
 
 VOLUME /var/lib/cassandra
 
-RUN cp files/sshd_config /var/lib/cassandra/custom_ssh/
-RUN cp files/run.sh /
+ADD files/sshd_config /var/lib/cassandra/custom_ssh/
+ADD files/run.sh /
 
 EXPOSE 7000 7001 7199 9042 9160 2222 8778
 
