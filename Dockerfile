@@ -6,7 +6,7 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-RUN mv /deployments .
+COPY /deployments /deployments
 RUN cp -rf /version/${version}/templates/* /deployments/charts/cassandra/templates/
 
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.18/main' > /etc/apk/repositories \
