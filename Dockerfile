@@ -6,7 +6,7 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-RUN mv /deployments .
+COPY /deployments .
 #COPY /version/ /version/
 RUN cp -rf /version/${CASSANDRA_VERSION}/templates/* /deployments/charts/cassandra/templates/
 
