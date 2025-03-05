@@ -6,10 +6,6 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-COPY /deployments /deployments
-#COPY /version/ /version/
-COPY /version/${CASSANDRA_VERSION}/templates/ /deployments/charts/cassandra/templates/
-
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/main' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/community' >> /etc/apk/repositories \
     && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl \
