@@ -6,7 +6,9 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing/' > /etc/apk/repositories \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/main' > /etc/apk/repositories \
+    && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.20/community' >> /etc/apk/repositories \
+    && echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing/' >> /etc/apk/repositories \ 
     && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl py3-cassandra-driver \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
