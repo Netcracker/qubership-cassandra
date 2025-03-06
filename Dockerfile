@@ -19,7 +19,7 @@ ENV CASSANDRA_DATA /var/lib/cassandra/data
 ENV CASSANDRA_HOME /opt/cassandra
 
 COPY pip.conf /etc/pip.conf
-RUN pip3 install cassandra-driver
+RUN apk add --no-cache py3-cassandra-driver
 
 RUN wget -qO- https://archive.apache.org/dist/cassandra/${CASSANDRA_VERSION}/apache-cassandra-${CASSANDRA_VERSION}-bin.tar.gz | tar xvfz - -C /tmp/ && mv /tmp/apache-cassandra-${CASSANDRA_VERSION} $CASSANDRA_HOME
 ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
