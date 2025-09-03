@@ -1,4 +1,4 @@
-FROM alpine:3.20.3
+FROM alpine:3.22.1
 
 ARG version
 ENV CASSANDRA_VERSION $version
@@ -6,8 +6,8 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.18/main' > /etc/apk/repositories \
-    && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.18/community' >> /etc/apk/repositories \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/main' > /etc/apk/repositories \
+    && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/community' >> /etc/apk/repositories \
     && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
@@ -36,13 +36,13 @@ RUN wget -O $CASSANDRA_HOME/lib/netty-codec-http-4.1.96.Final.jar https://repo1.
 RUN rm -f $CASSANDRA_CONFIG_DIR/cassandra-topology.properties
 
 RUN mkdir -p /var/lib/cassandra \
-        && mkdir -p /var/lib/cassandra/custom_ssh \
-        && chmod -R 777 /var/lib/cassandra \
-        && chmod -R 777 /var/lib/cassandra \
-        && chmod -R 777 $CASSANDRA_CONFIG_DIR \
-        && chmod -R 777 $CASSANDRA_HOME \
-        && chmod 777 /etc/passwd \
-        && chmod -R 777 /var/lib/cassandra/custom_ssh
+    && mkdir -p /var/lib/cassandra/custom_ssh \
+    && chmod -R 777 /var/lib/cassandra \
+    && chmod -R 777 /var/lib/cassandra \
+    && chmod -R 777 $CASSANDRA_CONFIG_DIR \
+    && chmod -R 777 $CASSANDRA_HOME \
+    && chmod 777 /etc/passwd \
+    && chmod -R 777 /var/lib/cassandra/custom_ssh
 
 VOLUME /var/lib/cassandra
 
