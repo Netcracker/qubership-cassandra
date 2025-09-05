@@ -1,4 +1,4 @@
-FROM alpine:3.20.3
+FROM alpine:3.22.1
 
 ARG version
 ENV CASSANDRA_VERSION $version
@@ -36,13 +36,13 @@ RUN wget -O $CASSANDRA_HOME/lib/netty-codec-http-4.1.96.Final.jar https://repo1.
 RUN rm -f $CASSANDRA_CONFIG_DIR/cassandra-topology.properties
 
 RUN mkdir -p /var/lib/cassandra \
-        && mkdir -p /var/lib/cassandra/custom_ssh \
-        && chmod -R 777 /var/lib/cassandra \
-        && chmod -R 777 /var/lib/cassandra \
-        && chmod -R 777 $CASSANDRA_CONFIG_DIR \
-        && chmod -R 777 $CASSANDRA_HOME \
-        && chmod 777 /etc/passwd \
-        && chmod -R 777 /var/lib/cassandra/custom_ssh
+    && mkdir -p /var/lib/cassandra/custom_ssh \
+    && chmod -R 777 /var/lib/cassandra \
+    && chmod -R 777 /var/lib/cassandra \
+    && chmod -R 777 $CASSANDRA_CONFIG_DIR \
+    && chmod -R 777 $CASSANDRA_HOME \
+    && chmod 777 /etc/passwd \
+    && chmod -R 777 /var/lib/cassandra/custom_ssh
 
 VOLUME /var/lib/cassandra
 
