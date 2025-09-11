@@ -19,10 +19,14 @@ ENV CASSANDRA_DATA /var/lib/cassandra/data
 ENV CASSANDRA_HOME /opt/cassandra
 
 COPY pip.conf /etc/pip.conf
-RUN pip3 install cassandra-driver
+RUN python3 -m venv /venv \
+    && . /venv/bin/activate \
+    && pip install --no-cache-dir cassandra-driver \
+    && deactivate
+
 
 RUN wget -qO- https://archive.apache.org/dist/cassandra/${CASSANDRA_VERSION}/apache-cassandra-${CASSANDRA_VERSION}-bin.tar.gz | tar xvfz - -C /tmp/ && mv /tmp/apache-cassandra-${CASSANDRA_VERSION} $CASSANDRA_HOME
-ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
+ENV PATH="/venv/bin:$PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin"
 
 RUN echo 'export PATH=$PATH:'"$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin" > $CASSANDRA_HOME/.profile 
 RUN cp $CASSANDRA_HOME/bin/cqlsh /usr/share/bin
