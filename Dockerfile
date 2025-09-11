@@ -8,7 +8,7 @@ ENV EXPORTER_VERSION $exp_version
 
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/main' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/community' >> /etc/apk/repositories \
-    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip py3-yaml rsync libarchive-tools grep openssl \
+    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3=3.10.13-r0 py-pip py3-yaml rsync libarchive-tools grep openssl \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
 
@@ -21,7 +21,7 @@ ENV CASSANDRA_HOME /opt/cassandra
 COPY pip.conf /etc/pip.conf
 RUN python3 -m venv /venv \
     && . /venv/bin/activate \
-    && pip install --no-cache-dir cassandra-driver \
+    && pip install --no-cache-dir cassandra-driver==3.29.2 \
     && deactivate
 
 
