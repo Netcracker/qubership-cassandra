@@ -8,7 +8,7 @@ ENV EXPORTER_VERSION $exp_version
 
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/main' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/v3.22/community' >> /etc/apk/repositories \
-    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip py3-six py3-setuptools py3-cryptography py3-cffi py3-pycparser py3-openssl py3-lxml py3-yaml bash rsync libarchive-tools grep openssl \
+    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip py3-yaml rsync libarchive-tools grep openssl \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
 
