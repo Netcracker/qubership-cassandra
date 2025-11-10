@@ -8,7 +8,7 @@ ENV EXPORTER_VERSION $exp_version
 
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/main/' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
-    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 py-pip rsync libarchive-tools grep openssl \
+    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3.11 py3.11-pip rsync libarchive-tools grep openssl \
     && sed -i "s/999/99/" /etc/group
 
 ENV CASSANDRA_CONFIG_DIR /opt/cassandra/conf
@@ -20,7 +20,7 @@ ENV VIRTUAL_ENV=/opt/venv
 
 COPY pip.conf /etc/pip.conf
 
-RUN python3 -m venv $VIRTUAL_ENV
+RUN python3.11 -m venv $VIRTUAL_ENV
 RUN /bin/bash -c "source $VIRTUAL_ENV/bin/activate && pip install cassandra-driver"
 
 # Add the virtual environment's bin directory to the PATH for all subsequent commands
@@ -29,8 +29,11 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN wget -qO- https://archive.apache.org/dist/cassandra/${CASSANDRA_VERSION}/apache-cassandra-${CASSANDRA_VERSION}-bin.tar.gz | tar xvfz - -C /tmp/ && mv /tmp/apache-cassandra-${CASSANDRA_VERSION} $CASSANDRA_HOME
 ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
 
-RUN echo 'export PATH=$PATH:'"$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin" > $CASSANDRA_HOME/.profile
-RUN cp $(which cqlsh) /usr/share/bin
+RUN apk add --no-cache gettext 
+RUN touch /usr/local/bin/cqlsh_wrapper.sh && chmod +x /usr/local/bin/cqlsh_wrapper.sh
+RUN echo '#!/bin/bash' >> /usr/local/bin/cqlsh_wrapper.sh && \
+    echo 'exec python3.11 ${CASSANDRA_HOME}/bin/cqlsh "$@"' >> /usr/local/bin/cqlsh_wrapper.sh
+ENV PATH /usr/local/bin:$PATH
 
 RUN mkdir -p /usr/share/java/
 
