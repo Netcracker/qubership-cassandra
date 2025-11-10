@@ -89,6 +89,5 @@ fi
 
 
 yes y | ssh-keygen -f /var/lib/cassandra/custom_ssh/ssh_host_rsa_key -N '' -t rsa
-#yes y | ssh-keygen -f /var/lib/cassandra/custom_ssh/ssh_host_dsa_key -N '' -t dsa
 /usr/sbin/sshd -f /var/lib/cassandra/custom_ssh/sshd_config &
 cassandra -f "$COMMAND_PARAMS"
