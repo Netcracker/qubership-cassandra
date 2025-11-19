@@ -6,9 +6,9 @@ ENV CASSANDRA_VERSION $version
 ARG exp_version
 ENV EXPORTER_VERSION $exp_version
 
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/main/' > /etc/apk/repositories \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/main' > /etc/apk/repositories \
     && echo 'https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
-    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash rsync libarchive-tools grep openssl \
+    && apk add --no-cache wget net-tools jq openjdk11 openssh-server bash python3 python3-dev py3-pip libev-dev build-base linux-headers libffi-dev openssl-dev rsync libarchive-tools grep openssl \
     # ping takes over 999 uid 
     && sed -i "s/999/99/" /etc/group 
 
@@ -19,12 +19,13 @@ ENV CASSANDRA_DATA /var/lib/cassandra/data
 ENV CASSANDRA_HOME /opt/cassandra
 
 COPY pip.conf /etc/pip.conf
-
+RUN pip3 install cassandra-driver --break-system-packages
 
 RUN wget -qO- https://archive.apache.org/dist/cassandra/${CASSANDRA_VERSION}/apache-cassandra-${CASSANDRA_VERSION}-bin.tar.gz | tar xvfz - -C /tmp/ && mv /tmp/apache-cassandra-${CASSANDRA_VERSION} $CASSANDRA_HOME
 ENV PATH $PATH:$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin
 
-RUN echo 'export PATH=$PATH:'"$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin" > $CASSANDRA_HOME/.profile
+RUN echo 'export PATH=$PATH:'"$CASSANDRA_HOME/bin:$CASSANDRA_HOME/tools/bin" > $CASSANDRA_HOME/.profile 
+#RUN cp $CASSANDRA_HOME/bin/cqlsh /usr/share/bin
 
 RUN mkdir -p /usr/share/java/
 
