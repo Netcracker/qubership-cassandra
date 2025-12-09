@@ -38,7 +38,7 @@ jobs:
             context: ""
             build_args:
               version: 5.0.4
-              exp_version: v0.9.15-SNAPSHOT/cassandra-exporter-agent-0.9.15-SNAPSHOT.jar
+              exp_version: feature_cassandra5_20250120-023639feature_cassandra5_20250120-023639/infrastructure1.0/cassandra-exporter-agent-0.10.3-SNAPSHOT.jar
           - name: qubership-cassandra-transfer_4.1
             file: docker-transfer/cassandra4/Dockerfile
             context: ""
