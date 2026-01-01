@@ -1,6 +1,6 @@
 FROM scratch
 
 # Transfer
-COPY deployments /deployments
+COPY deployments/charts/cassandra_4.1.9 /deployments/charts/cassandra
 
-COPY version/4.1.9/templates/ deployments/charts/cassandra/templates/
+# COPY version/4.1.9/templates/ deployments/charts/cassandra/templates/
