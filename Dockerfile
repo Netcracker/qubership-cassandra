@@ -18,7 +18,6 @@ RUN apt-get update \
         python3-pip \
         libev-dev \
         build-essential \
-        linux-headers-amd64 \
         libffi-dev \
         libssl-dev \
         rsync \
