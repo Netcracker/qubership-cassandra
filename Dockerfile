@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:11-jre
 
 ARG version
 ENV CASSANDRA_VERSION $version
