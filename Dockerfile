@@ -26,6 +26,9 @@ RUN apt-get update \
         openssl \
     && rm -rf /var/lib/apt/lists/*
 
+RUN sed -i "s/999/99/" /etc/group
+
+RUN ln -s /opt/java/openjdk/bin/java /usr/bin/java
 
 ENV CASSANDRA_CONFIG_DIR /opt/cassandra/conf
 ENV CASSANDRA_INIT_CONFIG_DIR /var/lib/cassandra/configuration
